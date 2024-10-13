@@ -24,7 +24,9 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+  "python-dotenv==1.0.1"
+]
 
 [project.urls]
 Documentation = "https://github.com/Cedric Vidal/dotenv-azd#readme"
