@@ -8,16 +8,26 @@
 ## Table of Contents
 
 - [Installation](#installation)
+- [Usage](#usage)
 - [License](#license)
 
 ## Installation
 
+Not yet on [pypi.org](pypi.org) so for now, install directly from this Github repo:
+
 ```console
-pip install dotenv-azd
+pip install git+https://github.com/cedricvidal/dotenv-azd.git@main
 ```
 
 ## Usage
 
+Create a new AZD env if you don't have one yet:
+
+```
+azd env new
+```
+
+In your Python code:
 ```
 from dotenv_azd import load_azd_env
 from os import getenv
