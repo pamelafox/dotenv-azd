@@ -13,10 +13,8 @@
 
 ## Installation
 
-Not yet on [pypi.org](pypi.org) so for now, install directly from this Github repo:
-
 ```console
-pip install git+https://github.com/cedricvidal/dotenv-azd.git@main
+pip install dotenv-azd
 ```
 
 ## Usage
