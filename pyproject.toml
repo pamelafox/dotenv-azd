@@ -11,7 +11,7 @@ requires-python = ">=3.8"
 license = "MIT"
 keywords = []
 authors = [
-  { name = "Cedric Vidal", email = "cedric@vidal.biz" },
+  { name = "Cedric Vidal", email = "cedric.vidal@gmail.com" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -29,9 +29,9 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/Cedric Vidal/dotenv-azd#readme"
-Issues = "https://github.com/Cedric Vidal/dotenv-azd/issues"
-Source = "https://github.com/Cedric Vidal/dotenv-azd"
+Documentation = "https://github.com/cedricvidal/dotenv-azd#readme"
+Issues = "https://github.com/cedricvidal/dotenv-azd/issues"
+Source = "https://github.com/cedricvidal/dotenv-azd"
 
 [tool.hatch.version]
 path = "src/dotenv_azd/__about__.py"
