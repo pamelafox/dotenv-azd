@@ -1,14 +1,13 @@
-from dotenv import load_dotenv
 import subprocess
-from typing import Optional
 from os import PathLike
+from typing import Optional, TypeAlias
 
-from typing import TypeAlias
+from dotenv import load_dotenv
 
 StrOrBytesPath: TypeAlias = str | bytes | PathLike
 
 def _azd_env_get_values(cwd: Optional[StrOrBytesPath] = None) -> str:
-    result = subprocess.run(['azd', 'env', 'get-values'], capture_output=True, text=True, cwd=cwd)
+    result = subprocess.run(['azd', 'env', 'get-values'], capture_output=True, text=True, cwd=cwd, check=False)
     if result.returncode:
         raise Exception("Failed to get azd environment values because of: " + result.stdout.strip())
     return result.stdout
