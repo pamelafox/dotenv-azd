@@ -27,35 +27,17 @@ E_CMD_NOT_FOUND = 127
 
 def _azd_env_get_values(cwd: str | bytes | PathLike | None = None) -> str:
     try:
-        # Try running azd directly (cross-platform approach)
         result = run(["azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=True)
-    except FileNotFoundError:
-        # If direct command fails, try finding azd in path
-        azd_path = shutil.which("azd")
-        if not azd_path:
-            msg = "azd command not found, install it prior to using dotenv-azd"
-            raise AzdCommandNotFoundError(msg)
-        try:
-            result = run([azd_path, "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=True)
-        except CalledProcessError as e:
-            if e.returncode == E_CMD_NOT_FOUND or (e.output and e.output.find("command not found") > 0):
-                msg = "azd command not found, install it prior to using dotenv-azd"
-                raise AzdCommandNotFoundError(msg) from e
-            if e.output and e.output.find("no project exists") > 0:
-                raise AzdNoProjectExistsError(e.output) from e
-            msg = "Unknown error occurred"
-            raise AzdError(msg) from e
+    except FileNotFoundError as e:
+        raise AzdCommandNotFoundError("azd command not found, install it prior to using dotenv-azd") from e
     except CalledProcessError as e:
         if e.returncode == E_CMD_NOT_FOUND or (e.output and e.output.find("command not found") > 0):
-            msg = "azd command not found, install it prior to using dotenv-azd"
-            raise AzdCommandNotFoundError(msg) from e
+            raise AzdCommandNotFoundError("azd command not found, install it prior to using dotenv-azd") from e
         if e.output and e.output.find("no project exists") > 0:
             raise AzdNoProjectExistsError(e.output) from e
-        msg = "Unknown error occurred"
-        raise AzdError(msg) from e
+        raise AzdError("Unknown error occurred") from e
     except SubprocessError as e:
-        msg = "Unknown error occurred"
-        raise AzdError(msg) from e
+        raise AzdError("Unknown error occurred") from e
     return result.stdout
 
 
