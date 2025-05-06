@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import shutil
 from subprocess import CalledProcessError, SubprocessError, run
 from typing import TYPE_CHECKING
 
