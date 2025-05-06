@@ -32,12 +32,15 @@ def _azd_env_get_values(cwd: str | bytes | PathLike | None = None) -> str:
         raise AzdCommandNotFoundError("azd command not found, install it prior to using dotenv-azd") from e
     except CalledProcessError as e:
         if e.returncode == E_CMD_NOT_FOUND or (e.output and e.output.find("command not found") > 0):
-            raise AzdCommandNotFoundError("azd command not found, install it prior to using dotenv-azd") from e
+            msg = "azd command not found, install it prior to using dotenv-azd"
+            raise AzdCommandNotFoundError(msg) from e
         if e.output and e.output.find("no project exists") > 0:
             raise AzdNoProjectExistsError(e.output) from e
-        raise AzdError("Unknown error occurred") from e
+        msg = "Unknown error occurred"
+        raise AzdError(msg) from e
     except SubprocessError as e:
-        raise AzdError("Unknown error occurred") from e
+        msg = "Unknown error occurred"
+        raise AzdError(msg) from e
     return result.stdout
 
 
