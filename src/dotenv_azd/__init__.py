@@ -26,17 +26,19 @@ E_CMD_NOT_FOUND = 127
 
 def _azd_env_get_values(cwd: str | bytes | PathLike | None = None) -> str:
     try:
-        result = run(["/usr/bin/env", "azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=True)
+        result = run(["azd", "env", "get-values"], capture_output=True, text=True, cwd=cwd, check=True)
+    except FileNotFoundError as e:
+        raise AzdCommandNotFoundError("azd command not found, install it prior to using dotenv-azd") from e
     except CalledProcessError as e:
-        if e.returncode == E_CMD_NOT_FOUND or e.output.find("command not found") > 0:
+        if e.returncode == E_CMD_NOT_FOUND or (e.output and e.output.find("command not found") > 0):
             msg = "azd command not found, install it prior to using dotenv-azd"
             raise AzdCommandNotFoundError(msg) from e
-        if e.output.find("no project exists") > 0:
+        if e.output and e.output.find("no project exists") > 0:
             raise AzdNoProjectExistsError(e.output) from e
-        msg = "Unknown error occured"
+        msg = "Unknown error occurred"
         raise AzdError(msg) from e
     except SubprocessError as e:
-        msg = "Unknown error occured"
+        msg = "Unknown error occurred"
         raise AzdError(msg) from e
     return result.stdout
 
